@@ -5,6 +5,7 @@ conf_tacotron2="examples/tacotron2/conf/tacotron2.kss.v1.yaml"
 tacotron2_model="tf_models/tacotron2.v1/kss/model-100000.h5"
 model="mb-gan" # [fastspeech2, mb-gan]
 devices="1"
+resume=""
 
 . utils/parse_options.sh
 
@@ -20,7 +21,7 @@ echo "----------------------------------"
 
 
 # ------------------------------------------------
-# data prep
+# Data prep
 # ------------------------------------------------
 if [ ! -d $data_dir/train/durations ]; then
 
@@ -70,16 +71,16 @@ if [[ $model == "fastspeech2" ]]; then
         --f0-stat $data_dir/stats_f0.npy \
         --energy-stat $data_dir/stats_energy.npy \
         --mixed_precision 1 \
-        --resume ""
+        --resume "$resume"
 
 elif [[ $model == "mb-gan" ]]; then
     CUDA_VISIBLE_DEVICES="$devices" \
-    python examples/melgan/train_melgan.py \
+    python examples/multiband_melgan/train_multiband_melgan.py \
         --train-dir "$data_dir/train/" \
         --dev-dir "$data_dir/valid/" \
         --outdir $outdir \
         --config $conf \
         --use-norm 1 \
-        --generator_mixed_precision 0 \
-        --resume ""
+        --generator_mixed_precision 1 \
+        --resume "$resume"
 fi
