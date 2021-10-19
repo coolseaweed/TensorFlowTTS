@@ -19,15 +19,20 @@ cd TensorFlowTTS && docker-compose up -d && docker exec -it tensorflowtts_tensor
 ```
 
 ## 3. Tensorflow TTS 학습
+multi-band mel gan의 경우 200k iter 후 discriminator를 학습할 때 중단하게 되는데 (원인은 잘 모르겠다), `--resume` 커맨드와 함께 재시작하면 다시 학습하게된다.
 ```
 # fastspeech2 (text -> mel-spectogram model)
 ./train.sh --model "fastspeech2" --conf examples/fastspeech2/conf/fastspeech2.kss.v2.yaml ./data_prep/kss tf_models/fastspeech2_v2/kss/
 
 # multi-band mel gan (vocoder)
 ./train.sh --model "mb-gan" --conf examples/multiband_melgan/conf/multiband_melgan.v1.yaml ./data_prep/kss tf_models/mb_melgan_v1/kss/
+./train.sh --model "mb-gan" --resume tf_models/mb_melgan_v1/kss/checkpoints/ckpt-200000 --conf examples/multiband_melgan/conf/multiband_melgan.v1.yaml ./data_prep/kss tf_models/mb_melgan_v1/kss/
+
 ```
 
 ## 4. Test
-
-## 5. 모델최적화 + Tensorflow.js 모델 변환
+```
+# inference
+python inference.py --text2mel ./tf_models/fastspeech2_v2/kss/checkpoints/model-200000.h5 --text2mel_config ./tf_models/fastspeech2_v2/kss/config.yml --vocoder ./tf_models/mb_melgan_v1/kss/checkpoints/generator-200061.h5 --vocoder_config ./tf_models/mb_melgan_v1/kss/config.yml script.txt audio
+```
 
