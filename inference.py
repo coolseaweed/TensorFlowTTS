@@ -1,16 +1,51 @@
 import numpy as np
 import soundfile as sf
 import yaml
-
+import argparse
 import tensorflow as tf
-
+import sys, os
 from tensorflow_tts.inference import TFAutoModel
 from tensorflow_tts.inference import AutoProcessor
 from tensorflow_tts.inference import AutoConfig
 
 
 
-def do_synthesis(input_text, text2mel_model, vocoder_model, text2mel_name, vocoder_name):
+
+def get_args():
+
+  parser = argparse.ArgumentParser()
+
+  parser.add_argument('--text2mel',
+                      required=True,
+                      help='text2mel model path')
+
+  parser.add_argument('--text2mel_config',
+                      required=True,
+                      help='text2mel config path')
+                      
+  parser.add_argument('--vocoder', 
+                      required=True,
+                      help='vocoder model path')
+
+  parser.add_argument('--vocoder_config',
+                      required=True,
+                      help='text2mel config path')
+
+
+  parser.add_argument('input',
+                      help='input text file')
+
+  parser.add_argument('output',
+                      help='out audio dir')
+
+
+  args = parser.parse_args()
+
+  return args
+
+
+
+def do_synthesis(input_text, text2mel_model, vocoder_model, text2mel_name, vocoder_name, processor):
   input_ids = processor.text_to_sequence(input_text)
 
 
@@ -46,29 +81,45 @@ def do_synthesis(input_text, text2mel_model, vocoder_model, text2mel_name, vocod
 
 
 
-# initialize fastspeech2 model
-fastspeech2_config = AutoConfig.from_pretrained('tf_models/fastspeech2.v2/kss/20210915/config.yml')
-fastspeech2 = TFAutoModel.from_pretrained(
-    config=fastspeech2_config,
-    pretrained_path="tf_models/fastspeech2.v2/kss/baseline/model-200000.h5",
-    name="fastspeech2"
-)
 
-# initialize melgan model
-mb_melgan_config = AutoConfig.from_pretrained('tf_models/mb_melgan.v1/kss/20210916/config.yml')
-mb_melgan = TFAutoModel.from_pretrained(
-    config=mb_melgan_config,
-    pretrained_path="tf_models/mb_melgan.v1/kss/baseline/generator-1000000.h5",
-    name="mb_melgan"
-)
+def main():
 
-processor = AutoProcessor.from_pretrained(pretrained_path="./test/files/kss_mapper.json")
+  args = get_args()
 
-FILE='script.txt'
-with open(FILE, 'r') as f:
-  for i, line in enumerate(f):
-    input_text = line.strip()
-    _, audio = do_synthesis(input_text, fastspeech2, mb_melgan, "FASTSPEECH2", "MB-MELGAN")
-    sf.write(f'./audio/line{i}.wav', audio, 22050, "PCM_16")
-    print(i, input_text)
+  input_text = args.input
+  output_dir = args.output
 
+  # initialize fastspeech2 model
+  fastspeech2_config = AutoConfig.from_pretrained(args.text2mel_config)
+  fastspeech2 = TFAutoModel.from_pretrained(
+      config=fastspeech2_config,
+      pretrained_path=args.text2mel,
+      name="fastspeech2"
+  )
+
+  # initialize melgan model
+  mb_melgan_config = AutoConfig.from_pretrained(args.vocoder_config)
+  mb_melgan = TFAutoModel.from_pretrained(
+      config=mb_melgan_config,
+      pretrained_path=args.vocoder,
+      name="mb_melgan"
+  )
+
+  processor = AutoProcessor.from_pretrained(pretrained_path="./test/files/kss_mapper.json")
+
+  os.makedirs(output_dir, exist_ok=True)
+  
+  with open(input_text, 'r') as f:
+    for i, line in enumerate(f):
+      input_text = line.strip()
+      _, audio = do_synthesis(input_text, fastspeech2, mb_melgan, "FASTSPEECH2", "MB-MELGAN", processor)
+      sf.write(f'{output_dir}/line{i}.wav', audio, 22050, "PCM_16")
+      print(i, input_text)
+
+
+
+if __name__ == '__main__':
+  main()
+
+
+ 

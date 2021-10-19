@@ -1,7 +1,7 @@
 FROM tensorflow/tensorflow:2.3.1-gpu
 
 RUN apt-get update && apt-get install -y \
-        zsh tmux wget git libsndfile1 sox \
+        zsh tmux wget git libsndfile1 sox vim \
     && \
     pip install \
         ipython==7.16.1  \

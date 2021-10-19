@@ -3,7 +3,7 @@
 conf="examples/fastspeech2/conf/fastspeech2.kss.v2.yaml"
 model="mb-gan" # [fastspeech2, mb-gan]
 devices="1"
-resume=""
+resume=""   # checkpoint path 
 
 . utils/parse_options.sh
 
