@@ -45,7 +45,7 @@ requirements = {
         "g2p_en",
         "dataclasses",
     ],
-    "setup": ["numpy", "pytest-runner",],
+    "setup": ["numpy", "pytest-runner", ],
     "test": [
         "pytest>=3.3.0",
         "hacking>=1.1.0",
@@ -71,7 +71,7 @@ extras_require = {
 dirname = os.path.dirname(__file__)
 setup(
     name="TensorFlowTTS",
-    version="1.6.1",
+    version="1.8",
     url="https://github.com/tensorspeech/TensorFlowTTS",
     author="Minh Nguyen Quan Anh, Alejandro Miguel Velasquez, Dawid Kobus, Eren Gölge, Kuan Chen, Takuya Ebata, Trinh Le Quang, Yunchao He",
     author_email="nguyenquananhminh@gmail.com",
