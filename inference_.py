@@ -38,7 +38,7 @@ def get_args():
     parser.add_argument(
         '--vocoder-path',
         dest="vocoder_path",
-        default="models/hifi_gan/generator-56250.h5",
+        default="models/hifi_gan/generator-25000.h5",
         help='vocoder model path'
     )
 
@@ -93,11 +93,8 @@ def do_synthesis(input_text, text2mel_model, vocoder_model, text2mel_name, vocod
     else:
         raise ValueError("Only TACOTRON, FASTSPEECH2 are supported on text2mel_name")
 
-    print(f"mel output: {mel_outputs.shape} / type: {type(mel_outputs)}")
     # vocoder part
     if vocoder_name == "MB_MELGAN":
-        audio = vocoder_model.inference(mel_outputs)[0, :, 0]
-    elif vocoder_name == "HIFI_GAN":
         audio = vocoder_model.inference(mel_outputs)[0, :, 0]
     else:
         raise ValueError("Only MB_MELGAN are supported on vocoder_name")
