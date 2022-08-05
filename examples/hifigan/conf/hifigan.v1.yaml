@@ -76,7 +76,7 @@ lambda_adv: 4.0
 ###########################################################
 #                  DATA LOADER SETTING                    #
 ###########################################################
-batch_size: 16                 # Batch size for each GPU with assuming that gradient_accumulation_steps == 1.
+batch_size: 256                 # Batch size for each GPU with assuming that gradient_accumulation_steps == 1.
 batch_max_steps: 8192          # Length of each audio in batch for training. Make sure dividable by hop_size.
 batch_max_steps_valid: 81920   # Length of each audio for validation. Make sure dividable by hope_size.
 remove_short_samples: true     # Whether to remove samples the length of which are less than batch_max_steps.
@@ -89,14 +89,16 @@ is_shuffle: true               # shuffle dataset after each epoch.
 generator_optimizer_params:
     lr_fn: "PiecewiseConstantDecay"
     lr_params: 
-        boundaries: [100000, 200000, 300000, 400000, 500000, 600000, 700000]
+        #boundaries: [3125, 6250, 9375, 12500, 15625, 18750, 21875]
+        boundaries: [6250, 12500, 18750, 25000, 31250, 37500, 43750]
         values: [0.000125, 0.000125, 0.0000625, 0.0000625, 0.0000625, 0.00003125, 0.000015625, 0.000001]
     amsgrad: false
 
 discriminator_optimizer_params:
     lr_fn: "PiecewiseConstantDecay"
     lr_params: 
-        boundaries: [100000, 200000, 300000, 400000, 500000]
+        #boundaries: [3125, 6250, 9375, 12500, 15625]
+        boundaries: [6250, 12500, 18750, 25000, 31250]
         values: [0.00025, 0.000125, 0.0000625, 0.00003125, 0.000015625, 0.000001]
     amsgrad: false
 
@@ -104,11 +106,11 @@ gradient_accumulation_steps: 1  # should be even number or 1.
 ###########################################################
 #                    INTERVAL SETTING                     #
 ###########################################################
-discriminator_train_start_steps: 100000  # steps begin training discriminator
-train_max_steps: 4000000                 # Number of training steps.
-save_interval_steps: 20000               # Interval steps to save checkpoint.
-eval_interval_steps: 5000                # Interval steps to evaluate the network.
-log_interval_steps: 200                  # Interval steps to record the training log.
+discriminator_train_start_steps: 3125  # steps begin training discriminator (100000)
+train_max_steps: 250000                 # Number of training steps. (4000000)
+save_interval_steps: 625               # Interval steps to save checkpoint.
+eval_interval_steps: 625                # Interval steps to evaluate the network.
+log_interval_steps: 100                  # Interval steps to record the training log.
 
 ###########################################################
 #                     OTHER SETTING                       #
