@@ -1,10 +1,16 @@
 version: '2.6'
 services:
-  tensorflowtts:
-    build: tf2.4/
+
+  tensorflowtts-2.6:
+    container_name: tensorflowtts-2.6
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/Dockerfile-tf2.6
+
     volumes:
       - .:/workspace
       - /mnt/data/input/:/mnt/data
+
     runtime: nvidia
     tty: true
     command: /bin/bash

@@ -42,7 +42,12 @@ dump_ljspeech/
 dump_kss/
 dump_libritts/
 /notebooks/test_saved/
+
+
+
+# CUSTOM
 data/
+models
 **predictions/
 **checkpoints/
 *.tfevents.*

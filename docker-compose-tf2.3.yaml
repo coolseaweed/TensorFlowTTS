@@ -1,0 +1,19 @@
+version: '2.6'
+services:
+
+  tensorflowtts-2.3:
+    container_name: tensorflowtts-2.3
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/Dockerfile-tf2.3
+
+    volumes:
+      - .:/workspace
+      - /mnt/data/input/:/mnt/data
+
+    runtime: nvidia
+    tty: true
+    command: /bin/bash
+
+    environment:
+      - CUDA_VISIBLE_DEVICES

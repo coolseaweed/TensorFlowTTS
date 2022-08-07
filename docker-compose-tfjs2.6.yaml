@@ -1,0 +1,19 @@
+version: '2.6'
+services:
+
+  tensorflowtts-js2.6:
+    container_name: tensorflowtts-js2.6
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/Dockerfile-tfjs2.6
+
+    volumes:
+      - .:/workspace
+      - /mnt/data/output/:/mnt/data
+
+    tty: true
+    command: /bin/bash
+
+    environment:
+      - LANG=C.UTF-8
+      - TZ=Asia/Seoul
