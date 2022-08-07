@@ -11,6 +11,7 @@ services:
       - .:/workspace
       - /mnt/data/output/:/mnt/data
 
+    runtime: nvidia
     tty: true
     command: /bin/bash
 

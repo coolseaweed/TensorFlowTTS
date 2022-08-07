@@ -22,9 +22,16 @@ fi
 
 if [ ! -d data_prep/kss ];then
   echo "[INFO] data prep."
-  [ ! -f tf_models/tacotron2_v1/kss/model-100000.h5 ] && echo "[ERROR] plz download tacotron2_v1 pretrained model from: https://drive.google.com/drive/folders/1WMBe01BBnYf3sOxMhbvnF2CUHaRTpBXJ" && exit 1
   tensorflow-tts-preprocess --rootdir data/kss/ --outdir data_prep/kss --config preprocess/kss_preprocess.yaml --dataset kss
   tensorflow-tts-normalize --rootdir ./data_prep/kss --outdir ./data_prep/kss --config preprocess/kss_preprocess.yaml --dataset kss
+  
+else
+  echo "[INFO] skip data prep step"
+fi
+
+
+if [ -f tf_models/tacotron2_v1/kss/model-100000.h5 ]; then
+  
   steps="train valid"
   for step in $steps; do
     python examples/tacotron2/extract_duration.py \
@@ -38,8 +45,9 @@ if [ ! -d data_prep/kss ];then
         --win-back 3
     wait
   done
+
 else
-  echo "[INFO] skip data prep step"
+  echo "[ERROR] plz download tacotron2_v1 pretrained model from: https://drive.google.com/drive/folders/1WMBe01BBnYf3sOxMhbvnF2CUHaRTpBXJ" && exit 1
 fi
 
 echo "[INFO] successfully finished data prep!" && exit 0

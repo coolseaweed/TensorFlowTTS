@@ -1,23 +1,20 @@
-FROM ubuntu:18.04
+FROM tensorflow/tensorflow:2.6.0-gpu
+
+RUN sed -i 's:^:#:g' /etc/apt/sources.list.d/cuda.list
 
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     apt-get install -y --allow-downgrades --allow-change-held-packages \
     cmake \ 
-    tzdata \
     curl \
     vim \ 
     bzip2 \
     unzip \
-    wget \
-    python3-distutils \ 
-    python3.6
+    wget 
 
-RUN ln -s /usr/bin/python3.6 /usr/bin/python && \ 
-    curl https://bootstrap.pypa.io/pip/3.6/get-pip.py | python 
 
 RUN pip install \
-    tensorflowjs==2.6.0
+    tensorflowjs==2.6.0 
 
 RUN mkdir /workspace
 WORKDIR /workspace
