@@ -93,3 +93,5 @@ python keras2saved.py \
 [link](https://github.com/coolseaweed/TensorFlowTTS/tree/prod/tensorflow_js)
 
 ---
+## LICENSE
+All code is MIT licensed.
