@@ -9,7 +9,7 @@ services:
 
     volumes:
       - .:/workspace
-      - /mnt/data/input/:/mnt/data
+      - /mnt/data/:/mnt/data
 
     runtime: nvidia
     tty: true
