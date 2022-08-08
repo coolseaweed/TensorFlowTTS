@@ -1,9 +1,16 @@
 # 한국어 TTS 
 
 
-## Env. setup
+## Env. setup 
+
 NVIDIA-driver version 에 따라 tensorflow-gpu 에 맞는 버전 골라서 셋업  
 
+- export user id
+    ```bash
+    # add following commands on ~/.bashrc or just type once
+    export USER_ID=$(id -u) 
+    export GROUP_ID=$(id -g)
+    ```
 - TensorflowTTS
 
     ```bash
