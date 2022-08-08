@@ -42,7 +42,11 @@ dump_ljspeech/
 dump_kss/
 dump_libritts/
 /notebooks/test_saved/
-
+.cache
+.config
+.keras
+.npm
+.*_history
 
 
 # CUSTOM
