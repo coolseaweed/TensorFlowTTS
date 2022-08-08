@@ -1,4 +1,9 @@
 # 한국어 TTS 
+[한국어 TTS demo](https://goarcade.net/tts/)
+
+[TTS 개발 블로그](https://coolseaweed.tistory.com/2)
+
+[TTS 개발 유튜브](https://youtu.be/lM0vXq0VSZ4)
 
 
 ## Env. setup 
@@ -30,7 +35,7 @@ NVIDIA-driver version 에 따라 tensorflow-gpu 에 맞는 버전 골라서 셋�
     ```
 ---
 ## Training
-multi-band mel gan의 경우 200k iter 후 discriminator를 학습할 때 중단하게 되는데 (원인은 잘 모르겠다), `--resume` 커맨드와 함께 재시작하면 다시 학습하게된다.
+multi-band mel gan의 경우 200k iter 후 discriminator를 학습할 때 중단하게 되는데, `--resume` 커맨드와 함께 재시작하면 다시 학습하게된다.
 ```
 # fastspeech2 (text2mel-spectogram model)
 ./train.sh \
