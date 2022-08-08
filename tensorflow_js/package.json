@@ -1,0 +1,28 @@
+{
+    "name": "tensorflow_tts.js",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@tensorflow/tfjs": "3.9.0",
+        "bootstrap": "^4.5.0",
+        "gh-pages": "^2.2.0"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "npm run build",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}
