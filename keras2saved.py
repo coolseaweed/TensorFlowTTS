@@ -18,7 +18,7 @@ def get_args():
 
     parser.add_argument(
         '--input',
-        default="models/fastspeech2/v1/model-200000.h5",
+        default="models/TF/FASTSPEECH2/",
         help='input keras dir'
     )
 

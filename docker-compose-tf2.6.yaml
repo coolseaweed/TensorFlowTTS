@@ -7,9 +7,10 @@ services:
       context: .
       dockerfile: ./Dockerfiles/Dockerfile-tf2.6
 
+    user: "${USER_ID}:${GROUP_ID}"
     volumes:
       - .:/workspace
-      - /mnt/data/:/mnt/data
+      - /mnt/data/:/mnt/data/
 
     runtime: nvidia
     tty: true

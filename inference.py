@@ -17,41 +17,41 @@ def get_args():
     parser.add_argument(
         '--text2mel-path',
         dest="text2mel_path",
-        default="models/fastspeech2/v1/model-200000.h5",
+        default="models/TF/FASTSPEECH2/model-200000.h5",
         help='text2mel model path'
     )
 
     parser.add_argument(
         '--text2mel-config',
         dest="text2mel_config",
-        default="models/fastspeech2/v1/conf.yaml",
+        default="models/TF/FASTSPEECH2/config.yaml",
         help='text2mel config path'
     )
 
     parser.add_argument(
         '--text2mel-name',
         dest="text2mel_name",
-        default="fastspeech2",
+        default="FASTSPEECH2",
         help='text2mel config path'
     )
 
     parser.add_argument(
         '--vocoder-path',
         dest="vocoder_path",
-        default="models/hifi_gan/generator-56250.h5",
+        default="models/TF/MB_MELGAN_HF/generator-375000.h5",
         help='vocoder model path'
     )
 
     parser.add_argument(
         '--vocoder-config',
         dest="vocoder_config",
-        default="models/hifi_gan/conf.yaml",
+        default="models/TF/MB_MELGAN_HF/config.yaml",
         help='text2mel config path'
     )
     parser.add_argument(
         '--vocoder-name',
         dest="vocoder_name",
-        default="hifi_gan",
+        default="MB_MELGAN_HF",
         help='text2mel config path'
     )
 
@@ -98,6 +98,8 @@ def do_synthesis(input_text, text2mel_model, vocoder_model, text2mel_name, vocod
     if vocoder_name == "MB_MELGAN":
         audio = vocoder_model.inference(mel_outputs)[0, :, 0]
     elif vocoder_name == "HIFI_GAN":
+        audio = vocoder_model.inference(mel_outputs)[0, :, 0]
+    elif vocoder_name == "MB_MELGAN_HF":
         audio = vocoder_model.inference(mel_outputs)[0, :, 0]
     else:
         raise ValueError("Only MB_MELGAN are supported on vocoder_name")

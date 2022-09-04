@@ -7,6 +7,8 @@ services:
       context: .
       dockerfile: ./Dockerfiles/Dockerfile-tf2.3
 
+    user: "${USER_ID}:${GROUP_ID}"
+
     volumes:
       - .:/workspace
       - /mnt/data/input/:/mnt/data

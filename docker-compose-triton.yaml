@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  triton-server:
+
+    image: nvcr.io/nvidia/tritonserver:22.07-py3
+    restart: always
+    runtime: nvidia
+    environment:
+      - CUDA_VISIBLE_DEVICES=1
+
+    volumes:
+      - ./triton_models/FASTSPEECH2/:/models
+
+    command: tritonserver --model-repository=/models --log-verbose 1 --backend-config=default-max-batch-size=4

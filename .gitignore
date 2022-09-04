@@ -47,7 +47,7 @@ dump_libritts/
 .keras
 .npm
 .*_history
-
+.local
 
 # CUSTOM
 data/
@@ -57,3 +57,7 @@ models
 *.tfevents.*
 **exp
 *__init__.py
+triton_models/
+output
+.env
+input.txt

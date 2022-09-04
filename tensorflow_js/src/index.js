@@ -1,9 +1,11 @@
 tf.enableProdMode()
 // tf.setBackend('webgl')
 
-const text2mel = tf.loadGraphModel('models/FASTSPEECH2/int8/model.json');
-// const vocoder = tf.loadGraphModel('models/MB_MELGAN/int8/model.json');
-const vocoder = tf.loadGraphModel('models/HIFIGAN/float32/model.json');
+const text2mel = tf.loadGraphModel('models/TFJS/FASTSPEECH2/int8/model.json');
+// const vocoder = tf.loadGraphModel('models/TFJS/MB_MELGAN/baseline/model.json');
+// const vocoder = tf.loadGraphModel('models/TFJS/HIFIGAN/int8/model.json');
+// const vocoder = tf.loadGraphModel('models/TFJS/MB_MELGAN/int8/model.json');
+const vocoder = tf.loadGraphModel('models/TFJS/MB_MELGAN_HF/int8/model.json');
 
 
 
