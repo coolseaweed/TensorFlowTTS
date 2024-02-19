@@ -1,10 +1,6 @@
 # 한국어 TTS 
 [한국어 TTS demo](https://goarcade.net/tts/)
 
-[TTS 개발 블로그](https://coolseaweed.tistory.com/2)
-
-[TTS 개발 유튜브](https://youtu.be/lM0vXq0VSZ4)
-
 
 ## Env. setup 
 
